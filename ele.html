@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+        <link href="styles.css" rel="stylesheet">
+        <title>peroidic</title>
+
+</head>
+<body>
+    <div class="header-quiz" style="display: flex; align-items: center;">
+        <h1><a href="index.html" class="a">Quiz</a></h1>
+        <div style="margin-left: 800px;"></div>
+        <div style="margin-left: 300px;">
+            <button type="button" class="btn btn-outline custom-quiz-reset-btn-outline btn-lg" onClick="reset()">Reset</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            <div style="text-align: center;">
+                <div style="padding-top: 5px;">
+                    <button type="button" class="btn btn-outline custom-quiz-btn-outline btn-lg" style="width: 150px;" onClick="nameSymbolQuiz('nameSym')">name symbol</button>
+                    <button type="button" class="btn btn-outline custom-quiz-btn-outline btn-lg" style="width: 150px;" onClick="nameSymbolQuiz('selectGroup')">select group</button>
+                    <button type="button" class="btn btn-outline custom-quiz-btn-outline btn-lg" style="width: 150px;" onClick="nameSymbolQuiz('nameElement')">name element</button>
+                </div>
+                <div style="padding-top: 5px;">
+                    <button type="button" class="btn btn-outline custom-quiz-btn-outline btn-lg" style="width: 150px;" onClick="nameSymbolQuiz('selectNumber')">name atomic number</button>
+                </div>
+            </div>
+        </div>
+
+    <div class="periodic-table col-md-9" id="buttonsContainer">
+        <div style="text-align: center; padding-bottom: 10px;" class="col-md-4">
+            <h2 id="explainer" style="padding-top: 5px;">&nbsp;</h2>
+            <h3 id="question" style="padding-top: 5px;">&nbsp;</h3>
+            <input type="text" id="submission" name="submission" class="ans">
+        </div>
+        <div id="fact">
+        </div>
+        <div class="container-quiz">
+            <div class="buttonP reactiveNonMetals hoverable" id="H">
+                <span class="atomic-number">1</span>
+                <span class="atomic-mass">1.008</span>
+                <br>
+                <span class="element-symbol">H</span>
+                <br>
+                <span class="element-name">Hydrogen</span>
+            </div>
+            <div style="width: 830px; height: 40px;"></div>
+            <div class="buttonP nobleGases hoverable" id="He">
+                <span class="atomic-number">2</span>
+                <span class="atomic-mass">4</span>
+                <br>
+                <span class="element-symbol">He</span>
+                <br>
+                <span class="element-name">Helium</span>
+            </div>
+        </div>
+        <div class="container-quiz">
+            <div class="buttonP alkaliMetals hoverable" id="Li">
+                <span class="atomic-number">3</span>
+                <span class="atomic-mass">6.941</span>
+                <br>
+                <span class="element-symbol">Li</span>
+                <br>
+                <span class="element-name">Lithium</span>
+            </div>
+            <div class="buttonP alkalineEarthMetals hoverable" id="Be">
+                <span class="atomic-number">4</span>
+                <span class="atomic-mass">9.012</span>
+                <br>
+                <span class="element-symbol">Be</span>
+                <br>
+                <span class="element-name">Beryllium</span>
+            </div>
+            <div style="width: 530px; height: 40px;"></div>
+            <div class="buttonP metalloids hoverable" id="B">
+                <span class="atomic-number">5</span>
+                <span class="atomic-mass">10.81</span>
+                <br>
+                <span class="element-symbol">B</span>
+                <br>
+                <span class="element-name">Boron</span>
+            </div>
+            <div class="buttonP reactiveNonMetals hoverable" id="C">
+                <span class="atomic-number">6</span>
+                <span class="atomic-mass">12.01</span>
+                <br>
+                <span class="element-symbol">C</span>
+                <br>
+                <span class="element-name">Carbon</span>
+            </div>
+            <div class="buttonP reactiveNonMetals hoverable" id="N">
+                <span class="atomic-number">7</span>
+                <span class="atomic-mass">14.01</span>
+                <br>
+                <span class="element-symbol">N</span>
+                <br>
+                <span class="element-name">Nitrogen</span>
+            </div>
+            <div class="buttonP reactiveNonMetals hoverable" id="O">
+                <span class="atomic-number">8</span>
+                <span class="atomic-mass">16.00</span>
+                <br>
+                <span class="element-symbol">O</span>
+                <br>
+                <span class="element-name">Oxygen</span>
+            </div>
+            <div class="buttonP reactiveNonMetals hoverable" id="F">
+                <span class="atomic-number">9</span>
+                <span class="atomic-mass">19.00</span>
+                <br>
+                <span class="element-symbol">F</span>
+                <br>
+                <span class="element-name">Fluorine</span>
+            </div>
+            <div class="buttonP nobleGases hoverable" id="Ne">
+                <span class="atomic-number">10</span>
+                <span class="atomic-mass">20.18</span>
+                <br>
+                <span class="element-symbol">Ne</span>
+                <br>
+                <span class="element-name">Neon</span>
+            </div>
+        </div>
+        <div class="container-quiz">
+            <div class="buttonP alkaliMetals hoverable" id="Na">
+                <span class="atomic-number">11</span>
+                <span class="atomic-mass">22.99</span>
+                <br>
+                <span class="element-symbol">Na</span>
+                <br>
+                <span class="element-name">Sodium</span>
+            </div>
+            <div class="buttonP alkalineEarthMetals hoverable" id="Mg">
+                <span class="atomic-number">12</span>
+                <span class="atomic-mass">24.31</span>
+                <br>
+                <span class="element-symbol">Mg</span>
+                <br>
+                <span class="element-name">Magnesium</span>
+            </div>
+            <div style="width: 530px; height: 40px;"></div>
+            <div class="buttonP postTransitionMetals hoverable" id="Al">
+                <span class="atomic-number">13</span>
+                <span class="atomic-mass">26.98</span>
+                <br>
+                <span class="element-symbol">Al</span>
+                <br>
+                <span class="element-name">Aluminium</span>
+            </div>
+            <div class="buttonP metalloids hoverable" id="Si">
+                <span class="atomic-number">14</span>
+                <span class="atomic-mass">28.09</span>
+                <br>
+                <span class="element-symbol">Si</span>
+                <br>
+                <span class="element-name">Silicon</span>
+            </div>
+            <div class="buttonP reactiveNonMetals hoverable" id="P">
+                <span class="atomic-number">15</span>
+                <span class="atomic-mass">30.97</span>
+                <br>
+                <span class="element-symbol">P</span>
+                <br>
+                <span class="element-name">Posphorus</span>
+            </div>
+            <div class="buttonP reactiveNonMetals hoverable" id="S">
+                <span class="atomic-number">16</span>
+                <span class="atomic-mass">32.07</span>
+                <br>
+                <span class="element-symbol">S</span>
+                <br>
+                <span class="element-name">Sulfur</span>
+            </div>
+            <div class="buttonP reactiveNonMetals hoverable" id="Cl">
+                <span class="atomic-number">17</span>
+                <span class="atomic-mass">35.45</span>
+                <br>
+                <span class="element-symbol">Cl</span>
+                <br>
+                <span class="element-name">Chlorine</span>
+            </div>
+            <div class="buttonP nobleGases hoverable" id="Ar">
+                <span class="atomic-number">18</span>
+                <span class="atomic-mass">39.95</span>
+                <br>
+                <span class="element-symbol">Ar</span>
+                <br>
+                <span class="element-name">Argon</span>
+            </div>
+        </div>
+        <div class="container-quiz">
+            <div class="buttonP alkaliMetals hoverable" id="K">
+                <span class="atomic-number">19</span>
+                <span class="atomic-mass">39.10</span>
+                <br>
+                <span class="element-symbol">K</span>
+                <br>
+                <span class="element-name">Potassium</span>
+            </div>
+            <div class="buttonP alkalineEarthMetals hoverable" id="Ca">
+                <span class="atomic-number">20</span>
+                <span class="atomic-mass">40.08</span>
+                <br>
+                <span class="element-symbol">Ca</span>
+                <br>
+                <span class="element-name">Calcium</span>
+            </div>
+            <div class="buttonP transitionMetals hoverable" id="Sc">
+                <span class="atomic-number">21</span>
+                <span class="atomic-mass">44.96</span>
+                <br>
+                <span class="element-symbol">Sc</span>
+                <br>
+                <span class="element-name">Scandium</span>
+            </div>
+            <div style="width: 30px; height: 40px;"></div>
+            <div class="buttonP transitionMetals hoverable" id="Ti">
+                <span class="atomic-number">22</span>
+                <span class="atomic-mass">47.867</span>
+                <br>
+                <span class="element-symbol">Ti</span>
+                <br>
+                <span class="element-name">Titanium</span>
+            </div>
+            <div class="buttonP transitionMetals hoverable" id="V">
+                <span class="atomic-number">23</span>
+                <span class="atomic-mass">50.94</span>
+                <br>
+                <span class="element-symbol">V</span>
+                <br>
+                <span class="element-name">Vanadium</span>
+            </div>
+            <div class="buttonP transitionMetals hoverable" id="Cr">
+                <span class="atomic-number">24</span>
+                <span class="atomic-mass">52.00</span>
+                <br>
+                <span class="element-symbol">Cr</span>
+                <br>
+                <span class="element-name">Chromium</span>
+            </div>
+            <div class="buttonP transitionMetals hoverable" id="Mn">
+                <span class="atomic-number">25</span>
+                <span class="atomic-mass">54.94</span>
+                <br>
+                <span class="element-symbol">Mn</span>
+                <br>
+                <span class="element-name">Manganese</span>
+            </div>
+            <div class="buttonP transitionMetals hoverable" id="Fe">
+                <span class="atomic-number">26</span>
+                <span class="atomic-mass">55.85</span>
+                <br>
+                <span class="element-symbol">Fe</span>
+                <br>
+                <span class="element-name">Iron</span>
+            </div>
+            <div class="buttonP transitionMetals hoverable" id="Co">
+                <span class="atomic-number">27</span>
+                <span class="atomic-mass">58.94</span>
+                <br>
+                <span class="element-symbol">Co</span>
+                <br>
+                <span class="element-name">Cobalt</span>
+            </div>
+            <div class="buttonP transitionMetals hoverable" id="Ni">
+                <span class="atomic-number">28</span>
+                <span class="atomic-mass">58.69</span>
+                <br>
+                <span class="element-symbol">Ni</span>
+                <br>
+                <span class="element-name">Nickel</span>
+            </div>
+            <div class="buttonP transitionMetals hoverable" id="Cu">
+                <span class="atomic-number">29</span>
+                <span class="atomic-mass">63.55</span>
+                <br>
+                <span class="element-symbol">Cu</span>
+                <br>
+                <span class="element-name">Copper</span>
+            </div>
+            <div class="buttonP transitionMetals hoverable" id="Zn">
+                <span class="atomic-number">30</span>
+                <span class="atomic-mass">65.38</span>
+                <br>
+                <span class="element-symbol">Zn</span>
+                <br>
+                <span class="element-name">Zinc</span>
+            </div>
+            <div class="buttonP postTransitionMetals hoverable" id="Ga">
+                <span class="atomic-number">31</span>
+                <span class="atomic-mass">69.72</span>
+                <br>
+                <span class="element-symbol">Ga</span>
+                <br>
+                <span class="element-name">Gallium</span>
+            </div>
+            <div class="buttonP metalloids hoverable" id="Ge">
+                <span class="atomic-number">32</span>
+                <span class="atomic-mass">72.64</span>
+                <br>
+                <span class="element-symbol">Ge</span>
+                <br>
+                <span class="element-name">Germanium</span>
+            </div>
+            <div class="buttonP metalloids hoverable" id="As">
+                <span class="atomic-number">33</span>
+                <span class="atomic-mass">74.92</span>
+                <br>
+                <span class="element-symbol">AS</span>
+                <br>
+                <span class="element-name">Arsenic</span>
+            </div>
+            <div class="buttonP reactiveNonMetals hoverable" id="Se">
+                <span class="atomic-number">34</span>
+                <span class="atomic-mass">78.96</span>
+                <br>
+                <span class="element-symbol">Se</span>
+                <br>
+                <span class="element-name">Selenium</span>
+            </div>
+            <div class="buttonP reactiveNonMetals hoverable" id="Br">
+                <span class="atomic-number">35</span>
+                <span class="atomic-mass">79.90</span>
+                <br>
+                <span class="element-symbol">Br</span>
+                <br>
+                <span class="element-name">Bromine</span>
+            </div>
+            <div class="buttonP nobleGases hoverable" id="Kr">
+                <span class="atomic-number">36</span>
+                <span class="atomic-mass">83.80</span>
+                <br>
+                <span class="element-symbol">Kr</span>
+                <br>
+                <span class="element-name">Krypton</span>
+            </div>
+        </div>
+        <div class="container-quiz">
+            <div class="buttonP alkaliMetals hoverable" id="Rb">
+                <span class="atomic-number">37</span>
+                <span class="atomic-mass">85.47</span>
+                <br>
+                <span class="element-symbol">Rb</span>
+                <br>
+                <span class="element-name">Rubidium</span>
+            </div>
+            <div class="buttonP alkalineEarthMetals hoverable" id="Sr">
+                <span class="atomic-number">38</span>
+                <span class="atomic-mass">87.62</span>
+                <br>
+                <span class="element-symbol">Sr</span>
+                <br>
+                <span class="element-name">Strontium</span>
+            </div>
+            <div class="buttonP transitionMetals hoverable" id="Y">
+                <span class="atomic-number">39</span>
+                <span class="atomic-mass">88.91</span>
+                <br>
+                <span class="element-symbol">Y</span>
+                <br>
+                <span class="element-name">Yttrium</span>
+            </div>
+            <div style="width: 30px; height: 40px;"></div>
+            <div class="buttonP transitionMetals hoverable" id="Zr">
+                <span class="atomic-number">40</span>
+                <span class="atomic-mass">91.22</span>
+                <br>
+                <span class="element-symbol">Zr</span>
+                <br>
+                <span class="element-name">Zirconium</span>
+            </div>
+            <div class="buttonP transitionMetals hoverable" id="Nb">
+                <span class="atomic-number">41</span>
+                <span class="atomic-mass">92.91</span>
+                <br>
+                <span class="element-symbol">Nb</span>
+                <br>
+                <span class="element-name">Niobium</span>
+            </div>
+            <div class="buttonP transitionMetals hoverable" id="Mo">
+                <span class="atomic-number">42</span>
+                <span class="atomic-mass">95.95</span>
+                <br>
+                <span class="element-symbol">Mo</span>
+                <br>
+                <span class="element-name">Molybdenum</span>
+            </div>
+            <div class="buttonP transitionMetals hoverable" id="Tc">
+                <span class="atomic-number">43</span>
+                <span class="atomic-mass">98</span>
+                <br>
+                <span class="element-symbol">Tc</span>
+                <br>
+                <span class="element-name">Technetium</span>
+            </div>
+            <div class="buttonP transitionMetals hoverable" id="Ru">
+                <span class="atomic-number">44</span>
+                <span class="atomic-mass">101.07</span>
+                <br>
+                <span class="element-symbol">Ru</span>
+                <br>
+                <span class="element-name">Ruthenium</span>
+            </div>
+            <div class="buttonP transitionMetals hoverable" id="Rh">
+                <span class="atomic-number">45</span>
+                <span class="atomic-mass">102.91</span>
+                <br>
+                <span class="element-symbol">Rh</span>
+                <br>
+                <span class="element-name">Rhodium</span>
+            </div>
+            <div class="buttonP transitionMetals hoverable" id="Pd">
+                <span class="atomic-number">46</span>
+                <span class="atomic-mass">106.42</span>
+                <br>
+                <span class="element-symbol">Pd</span>
+                <br>
+                <span class="element-name">Palladium</span>
+            </div>
+            <div class="buttonP transitionMetals hoverable" id="Ag">
+                <span class="atomic-number">47</span>
+                <span class="atomic-mass">107.87</span>
+                <br>
+                <span class="element-symbol">Ag</span>
+                <br>
+                <span class="element-name">Silver</span>
+            </div>
+            <div class="buttonP transitionMetals hoverable" id="Cd">
+                <span class="atomic-number">48</span>
+                <span class="atomic-mass">112.41</span>
+                <br>
+                <span class="element-symbol">Cd</span>
+                <br>
+                <span class="element-name">Cadmium</span>
+            </div>
+            <div class="buttonP postTransitionMetals hoverable" id="In">
+                <span class="atomic-number">49</span>
+                <span class="atomic-mass">114.82</span>
+                <br>
+                <span class="element-symbol">In</span>
+                <br>
+                <span class="element-name">Indium</span>
+            </div>
+            <div class="buttonP postTransitionMetals hoverable" id="Sn">
+                <span class="atomic-number">50</span>
+                <span class="atomic-mass">118.71</span>
+                <br>
+                <span class="element-symbol">Sn</span>
+                <br>
+                <span class="element-name">Tin</span>
+            </div>
+            <div class="buttonP metalloids hoverable" id="Sb">
+                <span class="atomic-number">51</span>
+                <span class="atomic-mass">121.76</span>
+                <br>
+                <span class="element-symbol">Sb</span>
+                <br>
+                <span class="element-name">Antimony</span>
+            </div>
+            <div class="buttonP metalloids hoverable" id="Te">
+                <span class="atomic-number">52</span>
+                <span class="atomic-mass">127.60</span>
+                <br>
+                <span class="element-symbol">Te</span>
+                <br>
+                <span class="element-name">Tellurium</span>
+            </div>
+            <div class="buttonP reactiveNonMetals hoverable" id="I">
+                <span class="atomic-number">53</span>
+                <span class="atomic-mass">129.90</span>
+                <br>
+                <span class="element-symbol">I</span>
+                <br>
+                <span class="element-name">Iodine</span>
+            </div>
+            <div class="buttonP nobleGases hoverable" id="Xe">
+                <span class="atomic-number">54</span>
+                <span class="atomic-mass">131.29</span>
+                <br>
+                <span class="element-symbol">Xe</span>
+                <br>
+                <span class="element-name">Xenon</span>
+            </div>
+        </div>
+        <div class="container-quiz">
+            <div class="buttonP alkaliMetals hoverable" id="Cs">
+                <span class="atomic-number">55</span>
+                <span class="atomic-mass">132.91</span>
+                <br>
+                <span class="element-symbol">Cs</span>
+                <br>
+                <span class="element-name">Caesium</span>
+            </div>
+            <div class="buttonP alkalineEarthMetals hoverable" id="Ba">
+                <span class="atomic-number">56</span>
+                <span class="atomic-mass">137.33</span>
+                <br>
+                <span class="element-symbol">Ba</span>
+                <br>
+                <span class="element-name">Barium</span>
+            </div>
+            <div class="buttonP lanthanides hoverable" id="La">
+                <span class="atomic-number">57</span>
+                <span class="atomic-mass">138.91</span>
+                <br>
+                <span class="element-symbol">La</span>
+                <br>
+                <span class="element-name">Lanthanum</span>
+            </div>
+            <div style="width: 30px; height: 40px;"></div>
+            <div class="buttonP transitionMetals hoverable" id="Hf">
+                <span class="atomic-number">72</span>
+                <span class="atomic-mass">178.49</span>
+                <br>
+                <span class="element-symbol">Hf</span>
+                <br>
+                <span class="element-name">Hafnium</span>
+            </div>
+            <div class="buttonP transitionMetals hoverable" id="Ta">
+                <span class="atomic-number">73</span>
+                <span class="atomic-mass">180.95</span>
+                <br>
+                <span class="element-symbol">Ta</span>
+                <br>
+                <span class="element-name">Tantalum</span>
+            </div>
+            <div class="buttonP transitionMetals hoverable" id="W">
+                <span class="atomic-number">74</span>
+                <span class="atomic-mass">183.84</span>
+                <br>
+                <span class="element-symbol">W</span>
+                <br>
+                <span class="element-name">Tungsten</span>
+            </div>
+            <div class="buttonP transitionMetals hoverable" id="Re">
+                <span class="atomic-number">75</span>
+                <span class="atomic-mass">186.21</span>
+                <br>
+                <span class="element-symbol">Re</span>
+                <br>
+                <span class="element-name">Rhenium</span>
+            </div>
+            <div class="buttonP transitionMetals hoverable" id="Os">
+                <span class="atomic-number">76</span>
+                <span class="atomic-mass">190.23</span>
+                <br>
+                <span class="element-symbol">Os</span>
+                <br>
+                <span class="element-name">Osmosium</span>
+            </div>
+            <div class="buttonP transitionMetals hoverable" id="Ir">
+                <span class="atomic-number">77</span>
+                <span class="atomic-mass">192.22</span>
+                <br>
+                <span class="element-symbol">Ir</span>
+                <br>
+                <span class="element-name">Iridium</span>
+            </div>
+            <div class="buttonP transitionMetals hoverable" id="Pt">
+                <span class="atomic-number">78</span>
+                <span class="atomic-mass">195.08</span>
+                <br>
+                <span class="element-symbol">Pt</span>
+                <br>
+                <span class="element-name">Platinum</span>
+            </div>
+            <div class="buttonP transitionMetals hoverable" id="Au">
+                <span class="atomic-number">79</span>
+                <span class="atomic-mass">196.97</span>
+                <br>
+                <span class="element-symbol">Au</span>
+                <br>
+                <span class="element-name">Gold</span>
+            </div>
+            <div class="buttonP transitionMetals hoverable" id="Hg">
+                <span class="atomic-number">80</span>
+                <span class="atomic-mass">200.59</span>
+                <br>
+                <span class="element-symbol">Hg</span>
+                <br>
+                <span class="element-name">Mercury</span>
+            </div>
+            <div class="buttonP postTransitionMetals hoverable" id="Tl">
+                <span class="atomic-number">81</span>
+                <span class="atomic-mass">204.38</span>
+                <br>
+                <span class="element-symbol">Tl</span>
+                <br>
+                <span class="element-name">Thallium</span>
+            </div>
+            <div class="buttonP postTransitionMetals hoverable" id="Pb">
+                <span class="atomic-number">82</span>
+                <span class="atomic-mass">207.20</span>
+                <br>
+                <span class="element-symbol">Pb</span>
+                <br>
+                <span class="element-name">Lead</span>
+            </div>
+            <div class="buttonP postTransitionMetals hoverable" id="Bi">
+                <span class="atomic-number">83</span>
+                <span class="atomic-mass">208.98</span>
+                <br>
+                <span class="element-symbol">Bi</span>
+                <br>
+                <span class="element-name">Bismuth</span>
+            </div>
+            <div class="buttonP postTransitionMetals hoverable" id="Po">
+                <span class="atomic-number">84</span>
+                <span class="atomic-mass">209</span>
+                <br>
+                <span class="element-symbol">Po</span>
+                <br>
+                <span class="element-name">Polonium</span>
+            </div>
+            <div class="buttonP postTransitionMetals hoverable" id="At">
+                <span class="atomic-number">85</span>
+                <span class="atomic-mass">210</span>
+                <br>
+                <span class="element-symbol">At</span>
+                <br>
+                <span class="element-name">Astatine</span>
+            </div>
+            <div class="buttonP nobleGases hoverable" id="Rn">
+                <span class="atomic-number">86</span>
+                <span class="atomic-mass">222</span>
+                <br>
+                <span class="element-symbol">Rn</span>
+                <br>
+                <span class="element-name">Radon</span>
+            </div>
+        </div>
+        <div class="container-quiz">
+            <div class="buttonP alkaliMetals hoverable" id="Fr">
+                <span class="atomic-number">87</span>
+                <span class="atomic-mass">223</span>
+                <br>
+                <span class="element-symbol">Fr</span>
+                <br>
+                <span class="element-name">Francium</span>
+            </div>
+            <div class="buttonP alkalineEarthMetals hoverable" id="Ra">
+                <span class="atomic-number">88</span>
+                <span class="atomic-mass">226</span>
+                <br>
+                <span class="element-symbol">Ra</span>
+                <br>
+                <span class="element-name">Radium</span>
+            </div>
+            <div class="buttonP actinides hoverable" id="Ac">
+                <span class="atomic-number">89</span>
+                <span class="atomic-mass">227</span>
+                <br>
+                <span class="element-symbol">Ac</span>
+                <br>
+                <span class="element-name">Actinium</span>
+            </div>
+            <div style="width: 30px; height: 40px;"></div>
+            <div class="buttonP transitionMetals hoverable" id="Rf">
+                <span class="atomic-number">104</span>
+                <span class="atomic-mass">267</span>
+                <br>
+                <span class="element-symbol">Rf</span>
+                <br>
+                <span class="element-name">Rutherfordium</span>
+            </div>
+            <div class="buttonP transitionMetals hoverable" id="Db">
+                <span class="atomic-number">105</span>
+                <span class="atomic-mass">262</span>
+                <br>
+                <span class="element-symbol">Db</span>
+                <br>
+                <span class="element-name">Dubnium</span>
+            </div>
+            <div class="buttonP transitionMetals hoverable" id="Sg">
+                <span class="atomic-number">106</span>
+                <span class="atomic-mass">269</span>
+                <br>
+                <span class="element-symbol">Sg</span>
+                <br>
+                <span class="element-name">Seaborgium</span>
+            </div>
+            <div class="buttonP transitionMetals hoverable" id="Bh">
+                <span class="atomic-number">107</span>
+                <span class="atomic-mass">264</span>
+                <br>
+                <span class="element-symbol">Bh</span>
+                <br>
+                <span class="element-name">Bohrium</span>
+            </div>
+            <div class="buttonP transitionMetals hoverable" id="Hs">
+                <span class="atomic-number">108</span>
+                <span class="atomic-mass">269</span>
+                <br>
+                <span class="element-symbol">Hs</span>
+                <br>
+                <span class="element-name">Hassium</span>
+            </div>
+            <div class="buttonP unknownProperties hoverable" id="Mt">
+                <span class="atomic-number">109</span>
+                <span class="atomic-mass">278</span>
+                <br>
+                <span class="element-symbol">Mt</span>
+                <br>
+                <span class="element-name">Meitnerium</span>
+            </div>
+            <div class="buttonP unknownProperties hoverable" id="Ds">
+                <span class="atomic-number">110</span>
+                <span class="atomic-mass">281</span>
+                <br>
+                <span class="element-symbol">Ds</span>
+                <br>
+                <span class="element-name">Darmstadtium</span>
+            </div>
+            <div class="buttonP unknownProperties hoverable" id="Rg">
+                <span class="atomic-number">111</span>
+                <span class="atomic-mass">282</span>
+                <br>
+                <span class="element-symbol">Rg</span>
+                <br>
+                <span class="element-name">Roentgenium</span>
+            </div>
+            <div class="buttonP unknownProperties hoverable" id="Cn">
+                <span class="atomic-number">112</span>
+                <span class="atomic-mass">285</span>
+                <br>
+                <span class="element-symbol">Cn</span>
+                <br>
+                <span class="element-name">Copernicium</span>
+            </div>
+            <div class="buttonP unknownProperties hoverable" id="Nh">
+                <span class="atomic-number">113</span>
+                <span class="atomic-mass">286</span>
+                <br>
+                <span class="element-symbol">Nh</span>
+                <br>
+                <span class="element-name">Nihonium</span>
+            </div>
+            <div class="buttonP unknownProperties hoverable" id="Fl">
+                <span class="atomic-number">114</span>
+                <span class="atomic-mass">289</span>
+                <br>
+                <span class="element-symbol">Fl</span>
+                <br>
+                <span class="element-name">Flerovium</span>
+            </div>
+            <div class="buttonP unknownProperties hoverable" id="Mc">
+                <span class="atomic-number">115</span>
+                <span class="atomic-mass">289</span>
+                <br>
+                <span class="element-symbol">Mc</span>
+                <br>
+                <span class="element-name">Moscovium</span>
+            </div>
+            <div class="buttonP unknownProperties hoverable" id="Lv">
+                <span class="atomic-number">116</span>
+                <span class="atomic-mass">293</span>
+                <br>
+                <span class="element-symbol">Lv</span>
+                <br>
+                <span class="element-name">Livemorium</span>
+            </div>
+            <div class="buttonP unknownProperties hoverable" id="Ts">
+                <span class="atomic-number">117</span>
+                <span class="atomic-mass">294</span>
+                <br>
+                <span class="element-symbol">Ts</span>
+                <br>
+                <span class="element-name">Tennessine</span>
+            </div>
+            <div class="buttonP unknownProperties hoverable" id="Og">
+                <span class="atomic-number">118</span>
+                <span class="atomic-mass">294</span>
+                <br>
+                <span class="element-symbol">Og</span>
+                <br>
+                <span class="element-name">Oganesson</span>
+            </div>
+        </div>
+        <div style="height: 30px;">
+        </div>
+        <div class="container-quiz">
+            <div style="width: 130px; height: 40px;"></div>
+            <div class="buttonP lanthanides hoverable" id="Ce">
+                <span class="atomic-number">58</span>
+                <span class="atomic-mass">140.12</span>
+                <br>
+                <span class="element-symbol">Ce</span>
+                <br>
+                <span class="element-name">Cerium</span>
+            </div>
+            <div class="buttonP lanthanides hoverable" id="Pr">
+                <span class="atomic-number">59</span>
+                <span class="atomic-mass">140.91</span>
+                <br>
+                <span class="element-symbol">Pr</span>
+                <br>
+                <span class="element-name">Praseodymium</span>
+            </div>
+            <div class="buttonP lanthanides hoverable" id="Nd">
+                <span class="atomic-number">60</span>
+                <span class="atomic-mass">144.24</span>
+                <br>
+                <span class="element-symbol">Nd</span>
+                <br>
+                <span class="element-name">Neodymium</span>
+            </div>
+            <div class="buttonP lanthanides hoverable" id="Pm">
+                <span class="atomic-number">61</span>
+                <span class="atomic-mass">145</span>
+                <br>
+                <span class="element-symbol">Pm</span>
+                <br>
+                <span class="element-name">Promethium</span>
+            </div>
+            <div class="buttonP lanthanides hoverable" id="Sm">
+                <span class="atomic-number">62</span>
+                <span class="atomic-mass">150.36</span>
+                <br>
+                <span class="element-symbol">Sm</span>
+                <br>
+                <span class="element-name">Samarium</span>
+            </div>
+            <div class="buttonP lanthanides hoverable" id="Eu">
+                <span class="atomic-number">63</span>
+                <span class="atomic-mass">151.96</span>
+                <br>
+                <span class="element-symbol">Eu</span>
+                <br>
+                <span class="element-name">Europium</span>
+            </div>
+            <div class="buttonP lanthanides hoverable" id="Gd">
+                <span class="atomic-number">64</span>
+                <span class="atomic-mass">157.25</span>
+                <br>
+                <span class="element-symbol">Gd</span>
+                <br>
+                <span class="element-name">Gadolinium</span>
+            </div>
+            <div class="buttonP lanthanides hoverable" id="Tb">
+                <span class="atomic-number">65</span>
+                <span class="atomic-mass">158.93</span>
+                <br>
+                <span class="element-symbol">Tb</span>
+                <br>
+                <span class="element-name">Terbium</span>
+            </div>
+            <div class="buttonP lanthanides hoverable" id="Dy">
+                <span class="atomic-number">66</span>
+                <span class="atomic-mass">162.5</span>
+                <br>
+                <span class="element-symbol">Dy</span>
+                <br>
+                <span class="element-name">Dysprosium</span>
+            </div>
+            <div class="buttonP lanthanides hoverable" id="Ho">
+                <span class="atomic-number">67</span>
+                <span class="atomic-mass">164.93</span>
+                <br>
+                <span class="element-symbol">Ho</span>
+                <br>
+                <span class="element-name">Holmium</span>
+            </div>
+            <div class="buttonP lanthanides hoverable" id="Er">
+                <span class="atomic-number">68</span>
+                <span class="atomic-mass">167.26</span>
+                <br>
+                <span class="element-symbol">Er</span>
+                <br>
+                <span class="element-name">Erbium</span>
+            </div>
+            <div class="buttonP lanthanides hoverable" id="Tm">
+                <span class="atomic-number">69</span>
+                <span class="atomic-mass">168.93</span>
+                <br>
+                <span class="element-symbol">Tm</span>
+                <br>
+                <span class="element-name">Thulium</span>
+            </div>
+            <div class="buttonP lanthanides hoverable" id="Yb">
+                <span class="atomic-number">70</span>
+                <span class="atomic-mass">173.04</span>
+                <br>
+                <span class="element-symbol">Yb</span>
+                <br>
+                <span class="element-name">Ytterbium</span>
+            </div>
+            <div class="buttonP lanthanides hoverable" id="Lu">
+                <span class="atomic-number">71</span>
+                <span class="atomic-mass">174.97</span>
+                <br>
+                <span class="element-symbol">Lu</span>
+                <br>
+                <span class="element-name">Lutetium</span>
+            </div>
+        </div>
+        <div class="container-quiz">
+            <div style="width: 130px; height: 40px;"></div>
+            <div class="buttonP actinides hoverable" id="Th">
+                <span class="atomic-number">90</span>
+                <span class="atomic-mass">232.04</span>
+                <br>
+                <span class="element-symbol">Th</span>
+                <br>
+                <span class="element-name">Thorium</span>
+            </div>
+            <div class="buttonP actinides hoverable" id="Pa">
+                <span class="atomic-number">91</span>
+                <span class="atomic-mass">231.04</span>
+                <br>
+                <span class="element-symbol">Pa</span>
+                <br>
+                <span class="element-name">Protactinium</span>
+            </div>
+            <div class="buttonP actinides hoverable" id="U">
+                <span class="atomic-number">92</span>
+                <span class="atomic-mass">238.03</span>
+                <br>
+                <span class="element-symbol">U</span>
+                <br>
+                <span class="element-name">uranium</span>
+            </div>
+            <div class="buttonP actinides hoverable" id="Np">
+                <span class="atomic-number">93</span>
+                <span class="atomic-mass">237.05</span>
+                <br>
+                <span class="element-symbol">Np</span>
+                <br>
+                <span class="element-name">Neptunium</span>
+            </div>
+            <div class="buttonP actinides hoverable" id="Pu">
+                <span class="atomic-number">94</span>
+                <span class="atomic-mass">244</span>
+                <br>
+                <span class="element-symbol">Pu</span>
+                <br>
+                <span class="element-name">Plutonium</span>
+            </div>
+            <div class="buttonP actinides hoverable" id="Am">
+                <span class="atomic-number">95</span>
+                <span class="atomic-mass">243</span>
+                <br>
+                <span class="element-symbol">Am</span>
+                <br>
+                <span class="element-name">Americium</span>
+            </div>
+            <div class="buttonP actinides hoverable" id="Cm">
+                <span class="atomic-number">96</span>
+                <span class="atomic-mass">247</span>
+                <br>
+                <span class="element-symbol">Cm</span>
+                <br>
+                <span class="element-name">Curium</span>
+            </div>
+            <div class="buttonP actinides hoverable" id="Bk">
+                <span class="atomic-number">97</span>
+                <span class="atomic-mass">247</span>
+                <br>
+                <span class="element-symbol">Bk</span>
+                <br>
+                <span class="element-name">Berkelium</span>
+            </div>
+            <div class="buttonP actinides hoverable" id="Cf">
+                <span class="atomic-number">98</span>
+                <span class="atomic-mass">251</span>
+                <br>
+                <span class="element-symbol">Cf</span>
+                <br>
+                <span class="element-name">Califormium</span>
+            </div>
+            <div class="buttonP actinides hoverable" id="Es">
+                <span class="atomic-number">99</span>
+                <span class="atomic-mass">252</span>
+                <br>
+                <span class="element-symbol">Es</span>
+                <br>
+                <span class="element-name">Einsteinium</span>
+            </div>
+            <div class="buttonP actinides hoverable" id="Fm">
+                <span class="atomic-number">100</span>
+                <span class="atomic-mass">257</span>
+                <br>
+                <span class="element-symbol">Fm</span>
+                <br>
+                <span class="element-name">Fermium</span>
+            </div>
+            <div class="buttonP actinides hoverable" id="Md">
+                <span class="atomic-number">101</span>
+                <span class="atomic-mass">258</span>
+                <br>
+                <span class="element-symbol">Md</span>
+                <br>
+                <span class="element-name">Mendelevium</span>
+            </div>
+            <div class="buttonP actinides hoverable" id="No">
+                <span class="atomic-number">102</span>
+                <span class="atomic-mass">259</span>
+                <br>
+                <span class="element-symbol">No</span>
+                <br>
+                <span class="element-name">Nobelium</span>
+            </div>
+            <div class="buttonP actinides hoverable" id="Lr">
+                <span class="atomic-number">103</span>
+                <span class="atomic-mass">262</span>
+                <br>
+                <span class="element-symbol">Lr</span>
+                <br>
+                <span class="element-name">Lawrencium</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="popUp" class="buttonP-big hoverable">
+        <span class="atomic-number-big">atomicNumber</span>
+        <span class="atomic-mass-big">atomicMass</span>
+        <br>
+        <span class="element-symbol-big">elementSymbol</span>
+        <br>
+        <span class="element-name-big">elementName</span>
+    </div>
+
+    <script>
+        var overButton = false;
+        var popUpEnabled = true;
+        var viseble = false;
+        var question = "";
+        var anwser = "";
+        var type = false;
+        var current = "";
+
+        var buttons = document.querySelectorAll('.hoverable');
+        buttons.forEach(function(button) {
+            button.addEventListener('mouseover', function() {
+                var buttonId = button.id;
+                if (popUpEnabled) {
+                var buttonId = button.id;
+                if (button.id === 'popUp') {
+                    overButton = false;
+                    return;
+                } else {
+                    console.log('Button hovered!', buttonId);
+                    overButton = true;
+                    popup(button);
+                }
+            }
+        });
+    });
+
+        function togglePopUp(state) {
+            popUpEnabled = state;
+            console.log('Pop-up Enabled:', popUpEnabled ? 'On' : 'Off');
+        }
+
+        document.addEventListener('mousemove', function(event) {
+            var isHoveringOverPopup = event.target.closest('#popUp');
+            if (popUpEnabled) {
+                if (!isHoveringOverPopup && !overButton) {
+                    console.log("here dropp the base");
+                    popUp.style.top = -100 + 'px';
+                    popUp.style.left = -100 + 'px';
+                }
+            }
+        });
+
+
+        function popup(button) {
+            var popUp = document.getElementById('popUp');
+            var atomicNumber = button.querySelector('.atomic-number').textContent;
+            var atomicMass = button.querySelector('.atomic-mass').textContent;
+            var elementSymbol = button.querySelector('.element-symbol').textContent;
+            var elementName = button.querySelector('.element-name').textContent;
+
+            var buttonRect = button.getBoundingClientRect();
+            var absoluteTop = buttonRect.top + window.scrollY - 25;
+            var absoluteLeft = buttonRect.left + window.scrollX - 25;
+
+            popUp.className = 'buttonP-big';
+
+            var buttonClasses = button.className.split(' ');
+            buttonClasses.forEach(function (classItem) {
+                if (classItem !== 'buttonP' && classItem !== 'hoverable') {
+                    popUp.classList.add(classItem);
+                }
+            });
+
+            popUp.querySelector(".atomic-number-big").textContent = atomicNumber;
+            popUp.querySelector(".atomic-mass-big").textContent = atomicMass;
+            popUp.querySelector(".element-symbol-big").textContent = elementSymbol;
+            popUp.querySelector(".element-name-big").textContent = elementName;
+
+            popUp.style.top = absoluteTop + 'px';
+            popUp.style.left = absoluteLeft + 'px';
+        }
+
+        function checkInputValue(event, question, anwser, type) {
+            var clickedElement = event.target;
+            var buttonId = null;
+            if (!type) {
+                while (clickedElement && !buttonId) {
+                    if (clickedElement.id) {
+                        buttonId = clickedElement.id;
+                    }
+                    clickedElement = clickedElement.parentElement;
+                }
+
+                if (buttonId) {
+                    console.log('Clicked button ID:', buttonId);
+                    var clickedButton = document.getElementById(buttonId);
+                    if (anwser.length < 3) {
+                        clickedButton = buttonId;
+                    }
+                    else {
+                        clickedButton = clickedButton.classList[1];
+                    }
+
+                    if (clickedButton) {
+                        var inputValue = clickedButton;
+                        var questionDisplay = question;
+                        var anwserDisplay = anwser;
+                        console.log("na", inputValue);
+                        console.log("question", anwser);
+
+                        if (inputValue === anwserDisplay) {
+                            console.log("winner winner");
+                            nameSymbolQuiz(current);
+                        }
+                    }
+                }
+            }
+            else{
+                console.log("here");
+                var inputElement = document.getElementById('submission');
+                if (inputElement) {
+                        var inputValue = inputElement.value;
+                        var targetValue = anwser;
+                        console.log("input",inputValue);
+                        console.log("target", targetValue)
+                        if (inputValue === targetValue) {
+                            document.getElementById('submission').value = "";
+                            console.log("submission win win");
+                            nameSymbolQuiz(current);
+                        }
+                }
+            }
+        }
+
+        function nameSymbolQuiz(watQuiz) {
+            reset();
+            togglePopUp(false);
+            const element = document.querySelectorAll('.buttonP');
+            const elementSymbol = document.querySelectorAll('.element-symbol');
+            const elementNumber = document.querySelectorAll('.atomic-number');
+            const elementName = document.querySelectorAll('.element-name');
+            const elementMass = document.querySelectorAll('.atomic-mass');
+            current = watQuiz;
+            document.getElementById('submission').value = "";
+            const randomElementSymbol = getRandom();
+            const tempElement = document.getElementById(randomElementSymbol);
+            const tempGroupName = tempElement.classList[1];
+            const tempElementSymbol = elementDict[randomElementSymbol].elementSymbol;
+            const tempElementName = elementDict[randomElementSymbol].elementName;
+            const tempAtomicNumber = elementDict[randomElementSymbol].atomicNumber;
+            const tempAtomicMass = elementDict[randomElementSymbol].atomicMass;
+
+            if (watQuiz === 'nameSym') {
+            document.getElementById('explainer').textContent = "Name the element";
+            question = tempElementSymbol;
+            anwser = tempElementName;
+            type = true;
+            elementName.forEach(elementName => {
+                elementName.classList.add('off');
+            })
+            document.getElementById('question').textContent = tempElementSymbol;
+            }
+            else if (watQuiz === 'selectGroup') {
+            document.getElementById('explainer').textContent = "select Group";
+            question = tempElementSymbol;
+            anwser = tempGroupName;
+            type = false;
+            element.forEach(element => {
+                element.classList.add('off');
+            })
+            document.getElementById('question').textContent = tempElementSymbol;
+            }
+            else if (watQuiz === 'nameElement') {
+            document.getElementById('explainer').textContent = "select symbol";
+            question = tempElementName;
+            anwser = tempElementSymbol;
+            type = false;
+            elementName.forEach(elementName => {
+                elementName.classList.add('off');
+            })
+            document.getElementById('question').textContent = tempElementName;
+            }
+            else if (watQuiz === 'selectNumber') {
+            document.getElementById('explainer').textContent = "select symbol";
+            question = tempAtomicNumber;
+            anwser = tempElementSymbol;
+            type = false;
+            elementNumber.forEach(elementNumber => {
+                elementNumber.classList.add('off');
+            })
+            document.getElementById('question').textContent = tempAtomicNumber;
+            }
+
+            if (tempElement) {
+                // Remove any existing click event listener
+                document.getElementById('buttonsContainer').removeEventListener('click', submitHandler);
+                document.getElementById('submission').removeEventListener('input', submitHandler);
+
+                // Add a new click event listener
+                document.getElementById('buttonsContainer').addEventListener('click', submitHandler);
+                document.getElementById('submission').addEventListener('input', submitHandler);
+            } else {
+                console.error("This still does not work");
+            }
+        }
+
+        function submitHandler(event) {
+            checkInputValue(event, question, anwser, type);
+        }
+
+
+
+        function getRandom() {
+            const elementSymbols = Object.keys(elementDict);
+            const randomIndex = Math.floor(Math.random() * elementSymbols.length);
+            const randomElement = elementSymbols[randomIndex];
+            return randomElement;
+        }
+    </script>
+
+    <script>
+        const elementDict = {};
+        function getElementInfoDictionary() {
+            const elements = document.querySelectorAll('.buttonP');
+
+            elements.forEach(element => {
+                const elementId = element.id;
+                const atomicNumber = element.querySelector('.atomic-number').textContent;
+                const atomicMass = element.querySelector('.atomic-mass').textContent;
+                const elementSymbol = element.querySelector('.element-symbol').textContent;
+                const elementName = element.querySelector('.element-name').textContent;
+
+                const elementInfo = {
+                    atomicNumber: atomicNumber,
+                    atomicMass: atomicMass,
+                    elementSymbol: elementSymbol,
+                    elementName: elementName
+                };
+                elementDict[elementId] = elementInfo;
+            });
+            return elementDict;
+        }
+        console.log('Element Information Dictionary:', elementDict);
+        getElementInfoDictionary();
+
+
+        function toggleVisibillity() {
+            viseble = !viseble;
+            const element = document.querySelectorAll('.buttonP');
+            const elementSymbol = document.querySelectorAll('.element-symbol');
+            const elementNumber = document.querySelectorAll('.atomic-number');
+            const elementName = document.querySelectorAll('.element-name');
+            const elementMass = document.querySelectorAll('.atomic-mass');
+            if(viseble){
+            element.forEach(element => {
+                element.classList.add('off');
+            });
+            }
+            else {
+                element.forEach(element => {
+                element.classList.remove('off');
+            });
+            }
+            console.log("is called");
+        }
+
+        function reset() {
+            togglePopUp(true);
+            document.getElementById('question').textContent = '\u00A0';
+            document.getElementById('explainer').textContent = '\u00A0';
+            const elements = document.querySelectorAll('.buttonP');
+            const elementSymbols = document.querySelectorAll('.element-symbol');
+            const elementNumbers = document.querySelectorAll('.atomic-number');
+            const elementNames = document.querySelectorAll('.element-name');
+            const elementMasses = document.querySelectorAll('.atomic-mass');
+            console.log("is called");
+            elements.forEach(element => {
+                element.classList.remove('off');
+                console.log("is called1");
+            });
+
+            elementSymbols.forEach(symbol => {
+                symbol.classList.remove('off');
+            });
+
+            elementNumbers.forEach(number => {
+                number.classList.remove('off');
+            });
+
+            elementNames.forEach(name => {
+                name.classList.remove('off');
+            });
+
+            elementMasses.forEach(mass => {
+                mass.classList.remove('off');
+            });
+        }
+    </script>
+    <footer class="footer"></footer>
+</body>
+</html>
