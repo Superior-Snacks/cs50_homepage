@@ -1,0 +1,174 @@
+# Image processing using OpenCV import cv2
+
+# Applying filters image = cv2.imread('image.jpg') blurred_image = cv2.medianBlur(image, 5) _, thresholded_image = cv2.threshold(blurred_image, 128, 255, cv2.THRESH_BINARY)
+
+# Pathfinding with graph representations graph = {'A': ['B', 'C'], 'B': ['A', 'D'], 'C': ['A', 'D'], 'D': ['B', 'C']} start, goal = 'A', 'D'
+
+# Regular expressions for pattern matching import re
+
+# Extracting phone numbers text = "Contact us at 123-456-7890 or 987-654-3210" phone_pattern = re.compile(r'\b\d{3}-\d{3}-\d{4}\b') phone_numbers = re.findall(phone_pattern, text)
+
+# Custom context managers with 'with' class CustomContextManager: def __enter__(self): print("Entering the custom context") return self
+
+def __exit__(self, exc_type, exc_value, traceback): print("Exiting the custom context")
+
+# Flask API with middleware from flask import Flask, jsonify, request app = Flask(__name__)
+
+# Middleware for request processing @app.before_request def before_request(): print("Processing request")
+
+# Middleware for response processing @app.after_request def after_request(response): print("Processing response") return response
+
+# Edge detection with Sobel operator import numpy as np
+
+# Applying Sobel operator sobel_x = cv2.Sobel(blurred_image, cv2.CV_64F, 1, 0, ksize=5) sobel_y = cv2.Sobel(blurred_image, cv2.CV_64F, 0, 1, ksize=5) gradient_magnitude = np.sqrt(sobel_x**2 + sobel_y**2)
+
+# A* algorithm with heuristic functions from queue import PriorityQueue
+
+# Heuristic function def heuristic_cost_estimate(node, goal): return abs(node[0] - goal[0]) + abs(node[1] - goal[1])
+
+# File handling with 'with' statement with open('example.txt', 'r') as file: content = file.read()
+
+# Asynchronous programming with asyncio import asyncio
+
+async def async_example(): print("Start") await asyncio.sleep(2) print("End")
+
+# Decorators for logging def log_decorator(func): def wrapper(*args, **kwargs): print(f"Calling {func.__name__} with arguments {args} and keyword arguments {kwargs}") result = func(*args, **kwargs) print(f"{func.__name__} returned {result}") return result return wrapper
+
+@log_decorator def add(a, b): return a + b
+
+# Machine learning with scikit-learn from sklearn.model_selection import train_test_split from sklearn.ensemble import RandomForestClassifier from sklearn.metrics import accuracy_score
+
+# Data preparation X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=0.2)
+
+# Model training model = RandomForestClassifier() model.fit(X_train, y_train)
+
+# Model evaluation predictions = model.predict(X_test) accuracy = accuracy_score(y_test, predictions)
+
+# Web scraping with requests and BeautifulSoup import requests from bs4 import BeautifulSoup
+
+url = "https://example.com" response = requests.get(url) soup = BeautifulSoup(response.text, 'html.parser') title = soup.title.text
+
+# Database interaction with SQLAlchemy from sqlalchemy import create_engine, Column, Integer, String, Sequence from sqlalchemy.ext.declarative import declarative_base from sqlalchemy.orm import sessionmaker
+
+# Define the model Base = declarative_base()
+
+class User(Base): __tablename__ = 'users' id = Column(Integer, Sequence('user_id_seq'), primary_key=True) name = Column(String(50))
+
+# Create an engine and a session engine = create_engine('sqlite:///:memory:') Base.metadata.create_all(engine) Session = sessionmaker(bind=engine) session = Session()
+
+# Create and query a user
+new_user = User(name='John Doe')
+session.add(new_user)
+user = session.query(User).filter_by(name='John Doe').first()
+
+# Natural Language Processing with NLTK import nltk from nltk.tokenize import word_tokenize from nltk.corpus import stopwords from nltk.probability import FreqDist
+
+# Sample text text = "Natural Language Processing is a fascinating field. NLTK provides powerful tools for text analysis."
+
+# Tokenization tokens = word_tokenize(text)
+
+# Removing stop words filtered_tokens = [word for word in tokens if word.lower() not in stopwords.words('english')]
+
+# Frequency distribution fdist = FreqDist(filtered_tokens) common_words = fdist.most_common(3)
+
+# Asynchronous HTTP requests with aiohttp import aiohttp
+
+async def fetch(url): async with aiohttp.ClientSession() as session: async with session.get(url) as response: return await response.text()
+
+# Example usage async def main(): html_content = await fetch("https://example.com") print(html_content[:1000])  # Print the first 1000 characters of the HTML content
+
+# Python's itertools for efficient looping from itertools import cycle, count
+
+# Infinite loop using cycle for i, element in zip(count(), cycle(['a', 'b', 'c'])): if i == 10: break print(element)
+
+# Dynamic programming with memoization def fibonacci(n, memo={}): if n in memo: return memo[n] if n <= 1: return n result = fibonacci(n-1, memo) + fibonacci(n-2, memo) memo[n] = result return result
+
+# Handling dates with Python's datetime module from datetime import datetime, timedelta
+
+# Current date and time current_time = datetime.now()
+
+# Adding 2 days to the current date new_date = current_time + timedelta(days=2)
+
+# Unit testing with Python's unittest module import unittest
+
+# Example class for testing class MathOperationsTestCase(unittest.TestCase): def test_addition(self): result = 2 + 2 self.assertEqual(result, 4)
+
+# Running the tests if __name__ == '__main__': unittest.main()
+
+# Web development with Django # Django model definition and database query example from django.db import models
+
+class Book(models.Model): title = models.CharField(max_length=100) author = models.CharField(max_length=50) publication_date = models.DateField()
+
+# Querying the database recent_books = Book.objects.filter(publication_date__gte='2022-01-01')
+
+# Geospatial analysis with GeoPandas import geopandas as gpd from shapely.geometry import Point
+
+# Creating a GeoDataFrame data = {'City': ['New York', 'Los Angeles'], 'Latitude': [40.7128, 34.0522], 'Longitude': [-74.0060, -118.2437]} geometry = [Point(lon, lat) for lon, lat in zip(data['Longitude'], data['Latitude'])] gdf = gpd.GeoDataFrame(data, geometry=geometry)
+
+# Working with the GeoDataFrame gdf['City'] = gdf['City'].str.upper() gdf.plot()
+
+# Data visualization with Seaborn import seaborn as sns import matplotlib.pyplot as plt
+
+# Creating a Seaborn scatter plot tips = sns.load_dataset("tips") sns.scatterplot(data=tips, x="total_bill", y="tip", hue="day", style="time") plt.show()
+
+# Natural Language Processing with spaCy import spacy
+
+# Loading the English NLP model nlp = spacy.load("en_core_web_sm")
+
+# Tokenizing and processing text doc = nlp("SpaCy is an excellent NLP library.") for token in doc: print(token.text, token.pos_)
+
+# Machine learning with Keras from keras.models import Sequential from keras.layers import Dense
+
+# Creating a simple neural network model = Sequential() model.add(Dense(10, input_dim=8, activation='relu')) model.add(Dense(1, activation='sigmoid'))
+
+# Compiling and training the model model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy']) model.fit(X_train, y_train, epochs=10, batch_size=32, validation_data=(X_val, y_val))
+
+# Big-O notation for algorithmic complexity # Example of O(n^2) time complexity def example_algorithm(arr): n = len(arr) for i in range(n): for j in range(n): print(arr[i], arr[j])
+
+# Using the Flask web framework from flask import Flask, render_template app = Flask(__name__)
+
+# Defining a route @app.route('/') def index(): return render_template('index.html', message='Hello, Flask!')
+
+# Data manipulation with Pandas import pandas as pd
+
+# Creating a DataFrame data = {'Name': ['Alice', 'Bob', 'Charlie'], 'Age': [25, 30, 22]} df = pd.DataFrame(data)
+
+# Filtering data young_people = df[df['Age'] < 30]
+
+# Grouping and aggregating data grouped_data = df.groupby('Age').count()
+
+# Using Flask for RESTful API development from flask import Flask, jsonify, request app = Flask(__name__)
+
+# Defining routes for API endpoints @app.route('/api/data', methods=['GET']) def get_data(): return jsonify(data)
+
+@app.route('/api/data', methods=['POST']) def add_data(): new_data = request.get_json()
+
+# Process and add the new data to the dataset return jsonify({"message": "Data added successfully"})
+
+# Recurrent Neural Network (RNN) with TensorFlow/Keras from keras.models import Sequential from keras.layers import SimpleRNN, Dense import numpy as np
+
+# Creating synthetic time series data time_series_data = np.random.randn(1000, 1)
+
+# Building an RNN model model = Sequential() model.add(SimpleRNN(32, input_shape=(None, 1))) model.add(Dense(1)) model.compile(optimizer='adam', loss='mean_squared_error')
+
+# Training the RNN model.fit(time_series_data[:-1], time_series_data[1:], epochs=10, batch_size=32)
+
+# Building RESTful APIs with FastAPI from fastapi import FastAPI app = FastAPI()
+
+# Defining an API endpoint @app.get("/") def read_root(): return {"message": "Hello, FastAPI!"}
+
+# Asynchronous task scheduling with Celery from celery import Celery
+
+# Initializing Celery celery = Celery('tasks', broker='pyamqp://guest@localhost//')
+
+# Defining a Celery task @celery.task def add(x, y): return x + y
+
+# Using the task asynchronously result = add.delay(4, 4)
+
+# Handling exceptions in Python try: result = 10 / 0 except ZeroDivisionError as e: print(f"Error: {e}")
+
+# Context managers for database transactions from sqlalchemy import create_engine from sqlalchemy.orm import sessionmaker
+
+# Creating an SQLite in-memory database engine = create_engine('sqlite:///:memory:') session = sessionmaker(bind=engine)
+
+# Using a context manager for a transaction with Session() as session: # Perform database operations within the transaction pass
