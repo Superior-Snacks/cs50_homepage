@@ -1,0 +1,4 @@
+10 html tags: <div> <h1> <a> <img> <footer> <button> <input> <span> <br> <pre> <hr> <textarea>
+5 CSS tags: position, display, width, height, padding, margin, text-align, text-decoration, border, background-color, cursor, line-height
+one-sentence javaScript and bootstarp: made Minesweeper, simple math problem prompter, interactive periodic-table and dynamic text highlighter
+used bootstrap for buttons and grid layout.
