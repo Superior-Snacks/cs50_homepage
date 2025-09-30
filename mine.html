@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <link href="styles.css" rel="stylesheet">
+    <title>Minesweeper</title>
+</head>
+<body>
+    <div class="header-mine" style="display: flex; align-items: center;">
+        <h1><a href="index.html" class="a">Minesweeper</a></h1>
+        <div style="margin-left: 600px;"></div>
+        <div style="margin-left: 300px;">
+            <button class="button-reset" onClick="gameReset(gridSize, pixle)">Reset</button>
+        </div>
+    </div>
+    <div class="overlayW" id="winnerWinner">
+        <div class="overlay-content-mineW">
+            Winner
+        </div>
+    </div>
+    <div class="overlayL" id="loser">
+        <div class="overlay-content-mineL">
+            Game Over
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2" style="padding-left: 30px;">
+            <div style="padding-left: 10px; padding-top: 80px;">
+                <h2>Bombs Left</h2>
+                <h2 id="bombsLeft" style="text-align: center; padding-right: 50px; ">2</h2>
+            </div>
+            <div style="padding-left: 10px; padding-top: 10px;">
+                <button type="button" class="btn btn-outline custom-btn-outline btn-lg" style="width: 150px;" onclick="gameReset(20, 255)">Easy</button>
+            </div>
+            <div style="padding-left: 10px; padding-top: 10px;">
+                <button type="button" class="btn btn-outline custom-btn-outline btn-lg" style="width: 150px;" onclick="gameReset(30, 115)">Medium</button>
+            </div>
+            <div style="padding-left: 10px; padding-top: 10px;">
+                <button type="button" class="btn btn-outline custom-btn-outline btn-lg" style="width: 150px;" onclick="gameReset(40, 1)">Hard</button>
+            </div>
+        </div>
+        <div class="col-md-9 text-center">
+            <div id="minesweeperGrid">
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var colorArray = ['#fff', '#0000FF', '#008000', '#FF0000', '#00008B', '#800080', '#00FF00', '#FF1493', '#FFFF00', '#111'];
+        const minesweeperGrid = document.getElementById('minesweeperGrid');
+        let gridSize = 20;
+        var bombProbability = 0.2;
+        const minesweeperArray = [];
+        var numbLog = new Set();
+        var unFinnish = [];
+        var next = [];
+        var gameOver = false;
+        var bombCount = 0;
+        var bombsShow = 0;
+        var mode = "org";
+        var winCon = 0;
+        var flagNum = 0;
+        var won = false;
+        var done = false;
+        var lastly = 'reset';
+        var pixle = 255;
+
+        game(pixle)
+
+        function gameReset(newGridSize, newPixle) {
+            gridSize = newGridSize || gridSize;
+            pixle = newPixle || pixle;
+            numbLog = new Set();
+            unFinnish = [];
+            next = [];
+            gameOver = false;
+            minesweeperGrid.innerHTML = '';
+            winCon = 0;
+            flagNum = 0;
+            won = false;
+            done = false;
+            if (lastly !== 'reset') {
+                toggleOverlay(lastly);
+                lastly = 'reset';
+            }
+
+            game(pixle);
+        }
+
+        //populate
+        function game(pixle) {
+            bombCount = 0;
+            const minesweeperArray = [];
+            for (let i = 0; i < gridSize; i++) {
+                const row = [];
+                for (let j = 0; j < gridSize; j++) {
+                    const isBomb = Math.random() < bombProbability;
+                    const bombId = isBomb ? 'bomb' : 'blank';
+                    if (bombId === 'bomb') {
+                        bombCount++;
+                    }
+                    const cellId = `${i} ${j}`; // alt gr 2x *
+                    row.push(`<button class="cell" id="${cellId}" data-id1="${bombId}" data-id2="${i}" onclick="handleClick(event, this)" oncontextmenu="handleContextMenu(event, this, '${cellId}')"></button>`);
+                }
+                minesweeperArray.push(`<div class="row" style="padding-left: ${pixle}px;">${row.join('')}</div>`);
+            }
+            document.getElementById('bombsLeft').textContent = bombCount;
+            bombsShow = bombCount;
+            minesweeperGrid.innerHTML = minesweeperArray.join('');
+
+            // Tag number of bombs
+            for (let i = 0; i < gridSize; i++) {
+                for (let j = 0; j < gridSize; j++) {
+                    let numberBomb = 0;
+                    const current = document.getElementById(`${i} ${j}`);
+                    //skip bomb
+                    if (current.dataset.id1 === "bomb") {
+                        current.dataset.id2 = 9;
+                        continue;
+                    }
+                    //go around
+                    for (let dx = -1; dx <= 1; dx++) {
+                        for (let dy = -1; dy <= 1; dy++) {
+                            //Skip me
+                            if (dx === 0 && dy === 0) {
+                                continue;
+                            }
+
+                            const iValu = i + dx;
+                            const jValue = j + dy;
+
+                            //edge case &&and
+                            if (iValu >= 0 && iValu < gridSize && jValue >= 0 && jValue < gridSize) {
+                                const neighborElement = document.getElementById(`${iValu} ${jValue}`);
+
+                                if (neighborElement && neighborElement.dataset.id1 === "bomb") {
+                                    numberBomb++;
+                                }
+                            }
+                        }
+                    }
+                    current.dataset.id2 = numberBomb;
+                }
+            }
+        }
+
+        function handleClick(event, button) {
+            checkWinCondition()
+            if(gameOver) {
+            return;
+            }
+            if (button.classList.contains('flag')) {
+                return;
+            }
+            if (button.dataset.id1 === "bomb") {
+                button.classList.add('clicked-bomb')
+                gameOver = true;
+                checkWinCondition()
+            }
+            if (event.detail === 2) {
+                checkWinCondition()
+                //alert(`Double-clicked on button with id: ${button.id} and ${button.dataset.id1}`);
+                const double = button.id.split(" ");
+                const rowI = parseInt(double[0]);
+                const colJ = parseInt(double[1]);
+                const circle = [
+                    { dx: -1, dy: 0 }, // North
+                    { dx: 0, dy: -1 }, // West
+                    { dx: 1, dy: 0 },  // South
+                    { dx: 0, dy: 1 },  // East
+                    { dx: -1, dy: -1 }, // NW
+                    { dx: 1, dy: -1 },  // NE
+                    { dx: 1, dy: 1 },   // SE
+                    { dx: -1, dy: 1 },  // SW
+                ];
+                for (let i = 0; i < 8; i++) {
+
+                    const point = circle[i];
+                    const newRow = rowI + point.dx;
+                    const newCol = colJ + point.dy;
+                    const doubleC = document.getElementById(`${newRow} ${newCol}`);
+                    if (newRow >= 0 && newRow < gridSize && newCol >= 0 && newCol < gridSize) {
+                        if (doubleC.dataset.id2 === '0')
+                            mode = 'org';
+                            checkFlood(rowI, colJ);
+                        if (doubleC.dataset.id1 === "bomb" && doubleC.classList.contains('flag')) {
+                            console.log("flagged punck");
+                        }
+                        if (doubleC.classList.contains('clicked') || doubleC.classList.contains('clicked-blank') || doubleC.dataset.id1 === "bomb") {
+                            console.log("not now");
+                        }
+                        else if (doubleC.dataset.id2 !== '0'){
+                            doubleC.classList.add('clicked');
+                            doubleC.textContent = doubleC.dataset.id2;
+                            var index = parseInt(doubleC.dataset.id2);
+                            var color = colorArray[index];
+                            doubleC.style.color = color;
+                        }
+                    }
+                }
+            }
+            if (event.button === 2) {
+                alert(`Right-clicked on button with id: ${button.id} and ${button.dataset.id1}`);
+            } else if (button.dataset.id2 === '0') {
+                button.classList.add('clicked-blank');
+                const yo = button.id.split(" ");
+                const rowI = parseInt(yo[0]);
+                const colJ = parseInt(yo[1]);
+                mode = "org";
+                numbLog = new Set();
+                unFinnish = [];
+                next = [];
+                revealBlankCells(rowI, colJ, mode);
+            } else if(button.dataset.id2 !== '9') {
+                button.classList.add('clicked');
+                button.textContent = button.dataset.id2;
+                var index = parseInt(button.dataset.id2);
+                var color = colorArray[index];
+                button.style.color = color;
+            }
+            checkWinCondition()
+        }
+
+        function handleContextMenu(event, button, cellId) {
+            checkWinCondition()
+            if(gameOver) {
+            return;
+            }
+            if (!button.classList.contains('clicked') && !button.classList.contains('clicked-blank')) {
+                event.preventDefault();
+                console.log(winCon);
+                const flagAdded = button.classList.toggle('flag');
+                if (flagAdded) {
+                    console.log('Flag added');
+                    if(button.dataset.id1 === "bomb"){
+                        winCon++;
+                    }
+                    cachBombs('-'); // Decrease bomb count when adding a flag
+                } else {
+                    console.log('Flag removed');
+                    if(button.dataset.id1 === "bomb"){
+                        winCon--;
+                    }
+                    cachBombs('+'); // Increase bomb count when removing a flag
+
+                }
+            }
+        }
+
+        function cachBombs(flagOperation) {
+            console.log('bomb', bombsShow);
+            if (flagOperation === '-') {
+                bombsShow--;
+                flagNum++;
+            } else if (flagOperation === '+') {
+                bombsShow++;
+                flagNum--;
+            }
+            console.log('bomb after', bombsShow);
+            console.log("wincon",winCon);
+            console.log("amount of bombs", bombCount);
+            console.log("flagNum:", flagNum);
+            document.getElementById('bombsLeft').textContent = bombsShow;
+            checkWinCondition()
+        }
+        //flood start
+        function revealBlankCells(rowI, colJ, mode) {
+            console.log("reveal");
+            if (rowI < 0 || rowI >= gridSize || colJ < 0 || colJ >= gridSize) {
+                return;
+            }
+
+            const currentCell = document.getElementById(`${rowI} ${colJ}`);
+            if (!currentCell) {
+                return;
+            }
+
+            if (mode === "org") {
+                currentCell.classList.add('clicked-blank');
+                checkFlood(rowI, colJ);
+            } else if (unFinnish.length > 0 && mode === "skip") {
+                let lastUnfinished;
+
+                // Pop elements from unFinnish and check for duplicates
+                do {
+                    lastUnfinished = unFinnish.pop();
+                } while (unFinnish.some(cell => cell.row === lastUnfinished.row && cell.col === lastUnfinished.col));
+
+                const rowI = lastUnfinished.row;
+                const colJ = lastUnfinished.col;
+
+                currentCell.classList.add('clicked-blank');
+                checkFlood(rowI, colJ);
+            }
+            else if(currentCell.dataset.id2 !== '9') {
+                numbLog.forEach(cellId => {
+                    const button = document.getElementById(cellId);
+                    if (button) {
+                        button.classList.add('clicked');
+                        button.textContent = button.dataset.id2;
+                        const index = parseInt(button.dataset.id2);
+                        const color = colorArray[index];
+                        button.style.color = color;
+                    }
+                });
+                return;
+            }
+        }
+
+        function checkFlood(rowI, colJ) {
+            let found = false;
+            console.log("new iteration with", rowI, colJ);
+
+            const neighbors = [
+                { dx: 0, dy: -1 }, // West
+                { dx: -1, dy: 0 }, // North
+                { dx: 0, dy: 1 },  // East
+                { dx: 1, dy: 0 },  // South
+            ];
+
+            const badNeighbors = [
+                { dx: -1, dy: -1 }, // NW
+                { dx: 1, dy: -1 },  // NE
+                { dx: 1, dy: 1 },   // SE
+                { dx: -1, dy: 1 },  // SW
+            ];
+
+            var count = 0;
+            var endCount = 0;
+
+            for (let i = 0; i < 4; i++) {
+                const neighbor = neighbors[i];
+                const newRow = rowI + neighbor.dx;
+                const newCol = colJ + neighbor.dy;
+
+                if (newRow >= 0 && newRow < gridSize && newCol >= 0 && newCol < gridSize) {
+                    const newC = document.getElementById(`${newRow} ${newCol}`);
+                    if (newC && newC.dataset.id2 !== '0' && !newC.classList.contains('clicked') && newC.dataset.id2 !== '9') {
+                        numbLog.add(newC.id);
+                        console.log("number add:", newC.id);
+                        count++;
+                    }
+
+                    if (!found && newC && newC.dataset.id2 === '0' && !newC.classList.contains('clicked-blank')) {
+                        next = { row: newRow, col: newCol };
+                        found = true;
+                        console.log("found first blank space at", newC.id);
+                    }
+
+                    if (found && newC && newC.dataset.id2 === '0' && !newC.classList.contains('clicked-blank')) {
+                        unFinnish.push({ row: newRow, col: newCol });
+                        console.log("blank at:", newC.id);
+                    }
+
+                    if (newC.classList.contains('clicked-blank') || newC.classList.contains('clicked') || newC.classList.contains('flag')) {
+                        endCount ++;
+                    }
+                    if (newC.dataset.id1 === 'bomb' && !newC.classList.contains('flag')) {
+                        console.log("game over");
+                        newC.classList.add('clicked-bomb')
+                        gameOver = true;
+                    }
+                    console.log("i:", i)
+                    console.log(count);
+                    if (found) {
+                        mode = "skip";
+                    }
+
+                    if (count >= 1) {
+                        console.log("corners");
+                        for (let i = 0; i < 4; i++) {
+                            const badneighbor = badNeighbors[i];
+                            const newRowBad = rowI + badneighbor.dx;
+                            const newColBad = colJ + badneighbor.dy;
+                            const newBad = document.getElementById(`${newRowBad} ${newColBad}`);
+                            if (newRowBad>= 0 && newRowBad < gridSize && newColBad >= 0 && newColBad < gridSize) {
+                                if (newBad.dataset.id2 === '9' && !newBad.classList.contains('flag')) {
+                                    newBad.classList.add('clicked-bomb');
+                                    console.log("this is a bomb");
+                                    gameOver = true;
+                                }
+                                if (newBad.dataset.id2 !== '0' && !newBad.classList.contains('clicked') && newBad.dataset.id1 !== 'bomb') {
+                                    numbLog.add(newBad.id);
+                                    console.log("finding corners:", newBad.id);
+                                    newBad.classList.add('clicked');
+                                    newBad.textContent = newBad.dataset.id2;
+                                    const index = parseInt(newBad.dataset.id2);
+                                    const color = colorArray[index];
+                                    newBad.style.color = color;
+                                }
+                                console.log("corner skip meta");
+                            }
+                            console.log("ended existence");
+                        }
+                    }
+                }
+            }
+            if(endCount === 4){
+                mode = "skip";
+                revealBlankCells(rowI, colJ, mode);
+            }
+            else{
+                rowI = next.row;
+                colJ = next.col;
+                revealBlankCells(rowI, colJ, mode);
+            }
+        }
+
+        function checkWinCondition() {
+            if (winCon === bombCount && flagNum === winCon && !done) {
+                gameOver = true;
+                console.log("WINNNER WINNER WINNER");
+                won = true;
+                done = true;
+                lastly = 'winnerWinner';
+                toggleOverlay(lastly)
+            }
+            else if (gameOver && !won && !done) {
+                console.log("lohooo sheher");
+                done = true;
+                lastly = 'loser'
+                toggleOverlay(lastly)
+            }
+        }
+        function toggleOverlay(homeComing) {
+            var overlay = document.getElementById(homeComing);
+            overlay.style.bottom = (overlay.style.bottom === '-100%' || overlay.style.bottom === '') ? '0%' : '-100%';
+
+        }
+    </script>
+
+    <footer class="footer"></footer>
+</body>
+</html>
