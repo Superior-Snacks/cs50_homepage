@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <link href="styles.css" rel="stylesheet">
+    <title>writing page</title>
+</head>
+<body>
+    <div class="header-type">
+        <h1><a href="index.html" class="a">Typing Practice</a></h1>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-2" style="left: -150px;">
+                <pre>
+
+
+
+                </pre>
+                <button type="button" class="btn btn-outline custom-btn-outline btn-lg" onclick="setRandomParagraph('write.txt');">write</button>
+                <pre>
+
+
+                </pre>
+                <button type="button" class="btn btn-outline custom-btn-outline btn-lg" onclick="setRandomParagraph('code.txt');" onclick="currentFile = 'code.txt'">code</button>
+
+
+            </div>
+
+            <div class="col-sm-10">
+                <!-- Wrap each character with a span for highlighting -->
+                <h3>Example words:</h3>
+                <div id="inputText" class="text-box"></div>
+                <h3>Enter words:</h3>
+                <textarea id="typedInput" class="text-box" oninput="highlightTypedCharacters()"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentParagraph;
+        let currentFile;
+
+        function randomEvenNumber(min, max) {
+            return Math.floor(Math.random() * ((max - min) / 2 + 1)) * 2 + min;
+        }
+        //then my ass
+        function setRandomParagraph(file) {
+            console.log("here1");
+                currentFile = file;
+                fetch(file)
+                    .then(response => response.text())
+                    .then(data => {
+                        const paragraphs = data.split('\n\n');
+                        const randomIndex = randomEvenNumber(0, paragraphs.length - 1);
+                        currentParagraph = paragraphs[randomIndex];
+                        console.log("here2");
+                        // Wrap each character in a span
+                        const inputText = document.getElementById('inputText');
+                        inputText.innerHTML = currentParagraph.split('').map(char => `<span>${char}</span>`).join('');
+                })
+                console.log("here3");
+
+        }
+
+        function highlightTypedCharacters() {
+            const typedInput = document.getElementById('typedInput');
+            const inputText = document.getElementById('inputText');
+
+            const inputValue = typedInput.value;
+
+        // Wrapit again but better
+        inputText.innerHTML = currentParagraph.split('').map((char, index) => {
+            const isCorrect = inputValue[index] === char;
+            const highlightColor = isCorrect ? '#90EE90' : '#FFB6C1';// right wrong
+            return `<span style="background-color: ${highlightColor};">${char}</span>`;
+        }).join('');
+
+        // finnish!
+        if (inputValue === currentParagraph) {
+            console.log(currentFile);
+            setRandomParagraph(currentFile);
+            typedInput.value = '';
+            }
+        }
+    </script>
+
+</body>
+</html>
