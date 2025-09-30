@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+        <link href="styles.css" rel="stylesheet">
+        <title>quick maths</title>
+    </head>
+<body>
+    <div class="header-math">
+        <h1><a href="index.html" class="a">Quick Math Practice</a></h1>
+    </div>
+
+    <div class="container text-center">
+        <div class="row">
+            <div class="col">
+                <button id="EZ" type="button" class="btn btn-outline-primary btn-lg" onclick="toggleOverlay('overlayEZ')">EZ +-</button>
+            </div>
+            <div class="col">
+                <button id="multi" type="button" class="btn btn-outline-primary btn-lg" onclick="toggleOverlay('overlayMulti')">Multiplication</button>
+            </div>
+            <div class="col">
+                <button id="trick" type="button" class="btn btn-outline-primary btn-lg" onclick="toggleOverlay('overlayTrick')">Trick Multiplication</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="overlayM" id="overlayEZ">
+        <div class="overlay-contentM">
+            <h2 id="EZCount">Count: 0</h2>
+            <hr>
+            <hr>
+            <h2 class="text-center" id="mathEZ">yo</h2>
+            <input type="text" id="submissionEZ" name="submission" class="ans" >
+        </div>
+    </div>
+
+    <div class="overlayM" id="overlayMulti">
+        <div class="overlay-contentM">
+            <h2 id="MultiCount">Count: 0</h2>
+            <hr>
+            <hr>
+            <h2 class="text-center" id="mathMulti">yo margfoldun</h2>
+            <input type="text" id="submissionMulti" name="submission" class="ans" >
+        </div>
+    </div>
+
+    <div class="overlayM" id="overlayTrick">
+        <div class="overlay-contentM">
+            <h2 id="TrickCount">Count: 0</h2>
+            <hr>
+            <hr>
+            <pre style="font-size: 20px;" id="grid">
+            0 0 X   0 Y X   X Y Z   X Y 0   X 0 0
+            0 0 X   0 X Y   Z Y X   Y X 0   X 0 0
+            </pre>
+            <h2 class="text-center" id="mathTrick1">yo margfoldun1 trick</h2>
+            <h2 class="text-center" id="mathTrick2">yo margfoldun2 trick</h2>
+            <input type="text" id="submissionTrick" name="submission" class="ans">
+        </div>
+    </div>
+
+    <script>
+        var formula
+        var result
+        var EZCountValue = 0;
+        var MultiCountValue = 0;
+        var TrickCountValue = 0;
+        var currentOverlay
+        function toggleOverlay(overlayId) {
+            var overlays = document.querySelectorAll('.overlayM');
+            overlays.forEach(function (overlay) {
+                overlay.style.bottom = '-100%';
+            });
+            console.log(overlayId);
+            var clickedOverlay = document.getElementById(overlayId);
+            currentOverlay = overlayId;
+            clickedOverlay.style.bottom = (clickedOverlay.style.bottom === '0px') ? '-100%' : '0px';
+
+            if (currentOverlay === "overlayEZ"){
+                EZMath();
+            }
+            else if (currentOverlay === "overlayMulti"){
+                MultiMath()
+            }
+            else{
+                TrickMath()
+            }
+
+            var overlayInputId = "submission" + overlayId.replace('overlay', '');
+            checkInputValueContinuously(overlayInputId);
+        }
+
+        function EZMath() {
+            var randomNumber1 = Math.floor(Math.random() * 100) + 1;
+            var randomNumber2 = Math.floor(Math.random() * 100) + 1;
+            var operation = Math.floor(Math.random() * 2);
+
+            if (operation === 0) {
+                result = randomNumber1 + randomNumber2;
+                formula = randomNumber1 + " + " + randomNumber2;
+            } else {
+                result = randomNumber1 - randomNumber2;
+                formula = randomNumber1 + " - " + randomNumber2;
+            }
+            console.log(result);
+            console.log(formula);
+            document.getElementById("mathEZ").textContent = formula;
+        }
+
+        function MultiMath(){
+            var randomNumber1 = Math.floor(Math.random() * 10) + 1;
+            var randomNumber2 = Math.floor(Math.random() * 10) + 1;
+
+            result = randomNumber1 * randomNumber2;
+            formula = randomNumber1 + " * " + randomNumber2;
+
+            console.log(result);
+            console.log(formula);
+            document.getElementById("mathMulti").textContent = formula;
+        }
+
+        function TrickMath(){
+            var randomNumber1 = Math.floor(Math.random() * 1000) + 1;
+            var randomNumber2 = Math.floor(Math.random() * 1000) + 1;
+
+            result = randomNumber1 * randomNumber2;
+            formula = randomNumber1 + " * " + randomNumber2;
+
+            console.log(result);
+            console.log(formula);
+            document.getElementById("mathTrick1").textContent = randomNumber1;
+            document.getElementById("mathTrick2").textContent = randomNumber2;
+        }
+
+        function checkInputValueContinuously(overlayInputId) {
+            var inputElement = document.getElementById(overlayInputId);
+
+            if (inputElement) {
+                inputElement.addEventListener('input', function() {
+                    var inputValue = inputElement.value;
+                    var targetValue = result;
+                    console.log(inputValue);
+
+                    if (parseFloat(inputValue) === result) {
+                        document.getElementById(overlayInputId).value = "";
+
+                        if (currentOverlay === "overlayEZ"){
+                            EZCountValue++;
+                            document.getElementById("EZCount").textContent = "Count: " + EZCountValue;
+                            EZMath();
+                        }
+                        else if (currentOverlay === "overlayMulti"){
+                            MultiCountValue++;
+                            document.getElementById("MultiCount").textContent = "Count: " + MultiCountValue;
+                            MultiMath()
+                        }
+                        else{
+                            TrickCountValue++;
+                            document.getElementById("TrickCount").textContent = "Count: " + TrickCountValue;
+                            TrickMath()
+                        }
+
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>
